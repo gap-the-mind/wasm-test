@@ -1,0 +1,9 @@
+{
+  "name": "www",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "filer": "^1.2.0"
+  }
+}

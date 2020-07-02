@@ -3,12 +3,15 @@
 package main
 
 import (
+	"log"
+	"net/http"
 	"os"
 	"os/exec"
 )
 
 func build() {
-	cmd := exec.Command("go", "build", "-o", "main.wasm")
+	log.Print("Building wasm")
+	cmd := exec.Command("go", "build", "-o", "www/main.wasm")
 
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, "GOOS=js")
@@ -19,5 +22,7 @@ func build() {
 
 func main() {
 	build()
-	// http.ListenAndServe(":8080", http.FileServer(http.Dir(`.`)))
+
+	log.Print("Starting server")
+	http.ListenAndServe(":8080", http.FileServer(http.Dir("www")))
 }

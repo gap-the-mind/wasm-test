@@ -12,10 +12,15 @@ import (
 func main() {
 	ch := make(chan struct{})
 
-	fs := osfs.New("/")
-	_, err := fs.Create("test.txt")
+	document := js.Global().Get("document")
+	p := document.Call("createElement", "p")
+	p.Set("innerHTML", "message")
+	document.Get("body").Call("appendChild", p)
 
-	log.Print(err)
+	fs := osfs.New("/")
+	_, err := fs.Create("/test.txt")
+
+	log.Fatal(err)
 
 	<-ch
 	js.Global().Get("console").Call("log", "Exiting Wasm module ...")
